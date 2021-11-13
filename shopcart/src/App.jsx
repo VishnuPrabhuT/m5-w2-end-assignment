@@ -12,6 +12,7 @@ import Home from "./Pages/Home";
 import Cart from "./Pages/Cart";
 
 import "./App.sass";
+import Checkout from "./Pages/Checkout";
 
 function App() {
     let prods = [
@@ -84,6 +85,16 @@ function App() {
                             path="/"
                             element={
                                 <Home
+                                    cartCount={cartCount}
+                                    products={products}
+                                    changeQuantity={changeQuantity}
+                                />
+                            }
+                        />
+                        <Route
+                            path="/checkout"
+                            element={
+                                <Checkout
                                     cartCount={cartCount}
                                     products={products}
                                     changeQuantity={changeQuantity}
