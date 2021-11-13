@@ -16,7 +16,7 @@ function Checkout() {
     function responseFacebook(res) {
         console.log(res);
         setData(res);
-        // setPicture(res.picture.data.url);
+        setPicture(res.picture.data.url);
         if (res.accessToken) {
             setLogin(true);
         } else {
@@ -64,7 +64,7 @@ function Checkout() {
                             appId="637489210597702"
                             autoLoad={false}
                             fields="name,email,picture"
-                            scope="public_profile,user_friends"
+                            scope="public_profile"
                             callback={responseFacebook}
                             icon="fa-facebook"
                         />
@@ -74,7 +74,16 @@ function Checkout() {
             {login && (
                 <div className="checkout-container">
                     <h2>Checkout</h2>
-                    <h4>Welcome back shopper!</h4>
+
+                    <h4>
+                        <img
+                            src={data.picture.data.url}
+                            alt="placeholder"
+                            width={50}
+                            height={50}
+                        />{" "}
+                        Welcome back shopper!
+                    </h4>
                     <p>Time to checkout?</p>
                 </div>
             )}
