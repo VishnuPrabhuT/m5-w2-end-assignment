@@ -21,6 +21,7 @@ function App() {
             image: "/products/cologne.jpg",
             desc: "Unisex Cologne",
             value: 0,
+            price: 5,
             ratings: "4",
         },
         {
@@ -28,6 +29,7 @@ function App() {
             image: "/products/iwatch.jpg",
             desc: "Apple iWatch",
             value: 0,
+            price: 20,
             ratings: "2",
         },
         {
@@ -35,6 +37,7 @@ function App() {
             image: "/products/mug.jpg",
             desc: "Unique Mug",
             value: 0,
+            price: 10,
             ratings: "4.5",
         },
         {
@@ -42,12 +45,14 @@ function App() {
             image: "/products/wallet.jpg",
             desc: "Mens Wallet",
             value: 0,
+            price: 15,
             ratings: "5",
         },
     ];
 
     const [cartCount, setCartCount] = useState(0);
     const [products, setProducts] = useState(prods);
+    const [sorts, setSorts] = useState({ lowest: -1, normal: 0, highest: 1 });
 
     function changeQuantity(id, quantity) {
         let p = products;
@@ -65,11 +70,59 @@ function App() {
         setCartCount(sum < 0 ? 0 : sum);
     }
 
+    function sort(key) {
+        let prods = Array.from(products);
+        prods.sort((a, b) => a.id - b.id);
+
+        switch (key) {
+            case "lowest":
+                prods.sort((a, b) => {
+                    return a.price - b.price;
+                });
+                break;
+            case "highest":
+                prods.sort((a, b) => {
+                    return b.price - a.price;
+                });
+                break;
+            case "normal":
+                prods.sort((a, b) => {
+                    return a.id - b.id;
+                });
+                break;
+        }
+
+        // console.log(prods);
+        setProducts(prods);
+    }
+
     return (
         <>
             <Router>
                 <div className="shop-cart">
                     <Header cartCount={cartCount} />
+                    <div className="sorter">
+                        <label htmlFor="sorts">Sort Price By: </label>{" "}
+                        <select
+                            name="sorts"
+                            id="sorts"
+                            onChange={(e) => {
+                                sort(
+                                    e.target.selectedOptions[0].getAttribute(
+                                        "k"
+                                    )
+                                );
+                            }}
+                        >
+                            {Object.keys(sorts).map((s) => {
+                                return (
+                                    <option key={s} k={s} value={sorts[s]}>
+                                        {s}
+                                    </option>
+                                );
+                            })}
+                        </select>
+                    </div>
                     <Routes>
                         <Route
                             path="/cart"

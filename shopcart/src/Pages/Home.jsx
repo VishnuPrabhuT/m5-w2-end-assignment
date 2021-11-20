@@ -16,6 +16,7 @@ function Home(props) {
             }
         }
     }
+    console.log(props.products);
     return (
         <>
             {props.products.map((product) => {
@@ -26,6 +27,7 @@ function Home(props) {
                         title={product.desc}
                         url={product.image}
                         value={product.value}
+                        price={product.price}
                         rating={product.ratings}
                         show={product.show}
                         changeQuantity={props.changeQuantity}

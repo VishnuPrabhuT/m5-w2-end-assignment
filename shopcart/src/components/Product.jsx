@@ -9,7 +9,10 @@ function Product(props) {
         <>
             <div className="product">
                 <div className="left">
-                    <h5>{props.title}</h5>
+                    <div>
+                        <h5>{props.title}</h5>
+                        <span>${props.price}</span>
+                    </div>
                     <img
                         src={props.url}
                         alt={props.title}
